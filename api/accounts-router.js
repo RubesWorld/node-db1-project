@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", mw.checkId, async (req, res) => {
   try {
     const { id } = req.params;
     const data = await Account.getById(id);
