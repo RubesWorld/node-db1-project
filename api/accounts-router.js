@@ -14,4 +14,14 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await Account.getById(id);
+    res.json(data);
+  } catch {
+    res.status(400).json({ message: "Failure" });
+  }
+});
+
 module.exports = router;
