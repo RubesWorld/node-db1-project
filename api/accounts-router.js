@@ -24,4 +24,14 @@ router.get("/:id", mw.checkId, async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  try {
+    const account = req.body;
+    const data = await Account.create(account);
+    res.json(data);
+  } catch {
+    res.status(400).json({ message: "Failure" });
+  }
+});
+
 module.exports = router;
