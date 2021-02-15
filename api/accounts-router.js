@@ -34,4 +34,25 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.put("/:id", mw.checkId, mw.checkAccount, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const changes = req.body;
+    const data = await Account.update(id, changes);
+    res.json(data);
+  } catch {
+    res.status(400).json({ message: "error" });
+  }
+});
+
+router.delete("/:id", mw.checkId, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await Account.remove(id);
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(400).json({ Message: "error" });
+  }
+});
+
 module.exports = router;

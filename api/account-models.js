@@ -4,6 +4,8 @@ module.exports = {
   get,
   getById,
   create,
+  update,
+  remove,
 };
 
 function get() {
@@ -20,5 +22,24 @@ function create(data) {
     .insert(data)
     .then(([id]) => {
       return db("accounts").where("id", id).first();
+    });
+}
+
+function update(id, data) {
+  const accountId = id;
+  return db("accounts")
+    .where("id", id)
+    .update(data)
+    .then(() => {
+      return db("accounts").where("id", accountId).first();
+    });
+}
+
+function remove(id) {
+  return db("accounts")
+    .where("id", id)
+    .del()
+    .then(() => {
+      return db("accounts");
     });
 }
